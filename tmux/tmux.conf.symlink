@@ -1,0 +1,52 @@
+set-option -g default-command "reattach-to-user-namespace -l zsh"
+
+set -g status on
+
+set -g history-limit 1000000
+
+# utf8 support
+set-window-option -g utf8 on
+
+#map tmux key
+bind C-b send-prefix
+
+# set status bar
+set -g status-bg green
+set -g status-fg black
+set -g status-left '#[fg=black]#H'
+
+# highlight active window in status bar
+set-window-option -g window-status-current-bg blue
+
+# notifications
+setw -g monitor-activity on
+setw -g visual-activity on
+
+# auto set window title
+setw -g automatic-rename
+
+# handy shortcut for commands
+bind-key C-l list-commands
+
+# set base indices for windows and panes
+set-option -g base-index 1
+setw -g pane-base-index 1
+
+# lowers the delay time between the prefix key and other keys
+set-option -g escape-time 1
+
+set -g default-terminal "screen-256color"
+
+# aggressive resizing
+setw -g aggressive-resize on
+
+setw -g mode-keys vi
+
+# hotkeys to move windows around
+bind-key -r C-S-Left swap-window -t -1
+bind-key -r C-S-Right swap-window -t +1
+
+# reload ~/.tmux.conf using PREFIX r
+bind r source-file ~/.tmux.conf \; display "Reloaded ~/.tmux.conf configuration!"
+
+set -g status-left-length 70

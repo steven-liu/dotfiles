@@ -1,0 +1,185 @@
+" ------------------------------------------------------------------------------
+" General Settings
+" ------------------------------------------------------------------------------
+
+" Turn off vi compatibility
+set nocompatible
+
+" Use the OS clipboard by default
+set clipboard=unnamed
+
+" Large undo/history
+set undolevels=1000
+set history=1000
+
+" Don't need backups
+set nobackup
+set nowritebackup
+set noswapfile
+
+" Setup undo tree
+set undofile
+set undodir=/tmp
+
+" Set encoding
+set encoding=utf8
+
+" load pathogen
+execute pathogen#infect()
+syntax on
+filetype plugin indent on
+
+"syntax enable
+set background=dark
+
+" Disable error bells
+set noerrorbells
+set visualbell
+set t_vb=
+
+" EasyMotion shit
+let g:EasyMotion_do_mapping = 0
+nmap <leader>f <Plug>(easymotion-s)
+
+" ------------------------------------------------------------------------------
+" Search and Replace
+" ------------------------------------------------------------------------------
+
+set incsearch                     " Show partial matches as search is entered.
+set hlsearch                      " Highlight search patterns.
+set ignorecase                    " Enable case insensitive search.
+set smartcase                     " Disable case insensitivity if mixed case.
+set wrapscan                      " Wrap to top of buffer when searching.
+"set gdefault                      " Make search and replace global by default.
+nnoremap <C-L> :nohl<CR>
+
+" 256 colors
+set t_Co=256
+
+" bind scroll keys to scroll 3 lines rather than just 1
+map <C-Y> <MouseDown>
+map <C-E> <MouseUp>
+
+" Python syntax plugin
+let python_highlight_all=1
+let python_slow_sync=1
+
+" taller command bar
+set cmdheight=2
+
+" always show the statusline
+set laststatus=2
+
+" change color of status line when in insert mode
+autocmd InsertEnter * highlight StatusLine ctermfg=Green
+autocmd InsertLeave * highlight StatusLine ctermfg=LightGray
+
+" bottom of screen offset
+set scrolloff=3
+
+" strip trailing white space on save
+autocmd BufWritePre * :%s/\s\+$//e
+" autocmd FileType python,html,coffee autocmd BufWritePre * :%s/\s\+$//e
+
+" enable backspace to delete past cursor
+set backspace=indent,eol,start
+
+" colorcolumn of 80 characters
+set colorcolumn=80
+highlight ColorColumn ctermbg=DarkBlue ctermfg=DarkRed
+
+" show command in the lower right hand corner
+set showcmd
+
+" show the cursor position all the time
+set ruler
+
+" set color of gutter column
+highlight clear SignColumn
+
+" show title in console title bar
+set title
+
+" show matching brackets
+set showmatch
+
+" show lin numbers
+set number
+
+" show title in console title bar
+set title
+
+" allow for forced write
+cmap w!! w !sudo tee %
+
+" ------------------------------------------------------------------------------
+" Whitespace
+" ------------------------------------------------------------------------------
+
+set autoindent
+set smarttab
+set shiftwidth=4
+set tabstop=4
+"set expandtab
+set shiftround
+
+" ------------------------------------------------------------------------------
+" Type-specific whitespace
+" ------------------------------------------------------------------------------
+
+autocmd FileType html set tabstop=4 shiftwidth=4 noexpandtab syntax=htmljinja
+" "autocmd FileType html set tabstop=2|set shiftwidth=2|set noexpandtab|set
+" syntax=htmljinja
+"autocmd FileType html set shiftwidth=4 tabstop=4 expandtab
+autocmd FileType python set shiftwidth=4|set tabstop=4|set expandtab
+autocmd FileType css set shiftwidth=4|set tabstop=4|set expandtab
+autocmd FileType coffee set shiftwidth=2|set tabstop=2|set expandtab
+autocmd FileType go set tabstop=4|set noexpandtab
+autocmd FileType yaml set shiftwidth=2|set tabstop=2|set expandtab
+autocmd FileType yml set shiftwidth=2|set tabstop=2|set expandtab
+
+" ------------------------------------------------------------------------------
+" Syntastic Settings
+" ------------------------------------------------------------------------------
+
+" http://blog.thomasupton.com/2012/05/syntastic/
+
+" let g:syntastic_debug = 1
+
+" On by default, turn it off for html
+let g:syntastic_mode_map = { 'mode': 'active',
+    \ 'active_filetypes': [],
+    \ 'passive_filetypes': ['html'] }
+
+" Better :sign interface symbols
+let g:syntastic_error_symbol = '✗'
+let g:syntastic_warning_symbol = '!'
+
+
+" ------------------------------------------------------------------------------
+" Other stuff
+" ------------------------------------------------------------------------------
+
+" smart tab completion for files in status
+set wildmode=longest:full
+set wildmenu
+
+" toggle line numbers
+nnoremap <C-k> :set nonumber!<CR>
+
+map <C-n> :NERDTreeToggle<CR>
+
+" syntastic plugin stuff
+let g:syntastic_check_on_open=0
+let g:syntastic_python_checkers=['pyflakes']
+
+" don't use "go" syntax checker because it is ridic slow, though not sure if
+" this is the culprit.
+let g:syntastic_go_checkers=["gofmt","golint","gotype","govet"]
+
+" set proper filetype for go files on open
+autocmd BufRead,BufNewFile *.go set filetype=go
+au BufNewFile,BufRead *.yaml,*.yml setf yaml
+
+" run goimports on buffer write
+autocmd FileType go autocmd BufWritePre <buffer> Fmt

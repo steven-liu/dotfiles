@@ -2,4 +2,4 @@
 
 echo "Removing all dotfile back up folders..."
 
-rm -rf dotfiles_bak_*
+rm -rf $HOME/dotfiles_bak_*

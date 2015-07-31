@@ -9,7 +9,7 @@
 DATE=$(date '+%Y%m%d_%H%M');
 
 DIR=$HOME/dotfiles
-BACKUP_DIR=$HOME/dotfiles_bak
+BACKUP_DIR=$HOME/dotfiles_bak_$DATE
 
 mkdir $BACKUP_DIR
 
@@ -30,5 +30,6 @@ do
 	fi
 
 	echo "Symlinking dotfile: $HOME/$filename -> $dotfile"
+        ln -s $dotfile $HOME/$filename
 
 done

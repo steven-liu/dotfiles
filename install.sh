@@ -26,10 +26,12 @@ do
 	if [ -f "$HOME/$filename" ]; then
 		echo "Found existing dotfile: $HOME/$filename"
 		cp $HOME/$filename $BACKUP_DIR/
+		echo "Removing old dotfile: $HOME/$filename"
 		rm -rf $HOME/$filename
 	fi
 
 	echo "Symlinking dotfile: $HOME/$filename -> $dotfile"
         ln -s $dotfile $HOME/$filename
 
+	echo "======"
 done

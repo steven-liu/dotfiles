@@ -78,8 +78,15 @@ autocmd InsertLeave * highlight StatusLine ctermfg=LightGray
 set scrolloff=3
 
 " strip trailing white space on save
-autocmd BufWritePre * :%s/\s\+$//e
-" autocmd FileType python,html,coffee autocmd BufWritePre * :%s/\s\+$//e
+"autocmd BufWritePre * :%s/\s\+$//e
+"autocmd FileType python,html,coffee autocmd BufWritePre * :%s/\s\+$//e
+fun! <SID>StripTrailingWhitespaces()
+    let l = line(".")
+    let c = col(".")
+    %s/\s\+$//e
+    call cursor(l, c)
+endfun
+autocmd BufWritePre * :call <SID>StripTrailingWhitespaces()
 
 " enable backspace to delete past cursor
 set backspace=indent,eol,start

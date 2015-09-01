@@ -188,5 +188,5 @@ let g:syntastic_go_checkers=["gofmt","golint","gotype","govet"]
 autocmd BufRead,BufNewFile *.go set filetype=go
 au BufNewFile,BufRead *.yaml,*.yml setf yaml
 
-" run goimports on buffer write
-autocmd FileType go autocmd BufWritePre <buffer> Fmt
+" run goimports on buffer write - DEPRECATED by vim-go
+" autocmd FileType go autocmd BufWritePre <buffer> Fmt
